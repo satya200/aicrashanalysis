@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings - AI Crash Analysis</title>
+  <link rel="stylesheet" href="popup.css">
+  <style>
+    .settings-container {
+      padding: 20px;
+      max-width: 500px;
+    }
+    
+    .setting-group {
+      margin-bottom: 24px;
+    }
+    
+    .setting-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    
+    .setting-description {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+    
+    .setting-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      font-family: 'Consolas', 'Monaco', monospace;
+    }
+    
+    .setting-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+    
+    .btn-save {
+      background: var(--success-color);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 8px;
+    }
+    
+    .btn-save:hover {
+      background: #218838;
+    }
+    
+    .status-message {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      display: none;
+    }
+    
+    .status-message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .status-message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .help-link {
+      font-size: 12px;
+      color: var(--primary-color);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 8px;
+    }
+    
+    .help-link:hover {
+      text-decoration: underline;
+    }
+    
+    .back-link {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+    
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1 class="title">
+          <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Settings
+        </h1>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="settings-container">
+      <a href="popup.html" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to Analyzer
+      </a>
+
+      <div class="setting-group">
+        <label class="setting-label" for="apiKey">Google AI Studio API Key</label>
+        <p class="setting-description">
+          Enter your Google AI Studio (Gemini) API key to enable AI-powered crash analysis.
+        </p>
+        <input 
+          type="password" 
+          id="apiKey" 
+          class="setting-input" 
+          placeholder="AIzaSy..."
+          autocomplete="off"
+        >
+        <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">
+          🔗 Get your API key from Google AI Studio
+        </a>
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label" for="model">AI Model</label>
+        <p class="setting-description">
+          Select the Gemini model to use for analysis.
+        </p>
+        <select id="model" class="setting-input">
+          <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fast, Recommended)</option>
+          <option value="gemini-2.5-pro">Gemini 2.5 Pro (More Capable)</option>
+          <option value="gemini-3-flash-preview">Gemini 3 Flash Preview (Latest)</option>
+        </select>
+      </div>
+
+      <div class="setting-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+        <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--primary-color);">
+          📦 GitHub Repository Context (Optional)
+        </h3>
+        <p class="setting-description" style="margin-bottom: 16px;">
+          Provide your GitHub repository details to enable code-aware analysis. This helps AI provide more accurate suggestions by analyzing actual source code.
+        </p>
+
+        <label class="setting-label" for="githubRepo">Repository URL</label>
+        <p class="setting-description">
+          Full GitHub repository URL (e.g., https://github.com/rdkcentral/rdk-halif-test-device_settings)
+        </p>
+        <input 
+          type="text" 
+          id="githubRepo" 
+          class="setting-input" 
+          placeholder="https://github.com/rdkcentral/your-repo"
+          style="font-family: 'Consolas', 'Monaco', monospace;"
+        >
+      </div>
+
+      <div class="setting-group">
+        <label class="setting-label" for="githubBranch">Branch / Tag / Commit</label>
+        <p class="setting-description">
+          Specify the branch name, tag, or commit SHA to analyze (default: main)
+        </p>
+        <input 
+          type="text" 
+          id="githubBranch" 
+          class="setting-input" 
+          placeholder="main"
+          style="font-family: 'Consolas', 'Monaco', monospace;"
+        >
+        <p class="setting-description" style="margin-top: 8px; font-size: 11px;">
+          💡 Examples: <code>main</code>, <code>develop</code>, <code>v1.0.0</code>, <code>abc123def</code>
+        </p>
+      </div>
+
+      <button id="saveBtn" class="btn-save">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+          <path d="M19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16L21 8V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 21V13H7V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7 3V8H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Save Settings
+      </button>
+
+      <div id="statusMessage" class="status-message"></div>
+
+      <div class="setting-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+        <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">About</h3>
+        <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
+          This extension uses Google's Gemini AI to analyze crash stack traces and provide intelligent suggestions for debugging. 
+          Your API key is stored locally in your browser and never sent to any third-party servers.
+        </p>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span class="footer-text">LabWeek 2026 Demo - Day 2</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>

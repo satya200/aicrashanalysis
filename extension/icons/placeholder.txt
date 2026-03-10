@@ -1,0 +1,11 @@
+Icon placeholders - You can add proper icons later or use these for testing:
+
+For now, you can:
+1. Create simple colored squares as PNG files (16x16, 48x48, 128x128)
+2. Use an online icon generator
+3. Or temporarily remove icon references from manifest.json
+
+To generate icons quickly, you can use this online tool:
+https://www.favicon-generator.org/
+
+Or create them programmatically using the create-icons.html file in this folder.
