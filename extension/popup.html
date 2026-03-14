@@ -17,9 +17,19 @@
             <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          Crash Analysis
+          AI Crash Analysis
         </h1>
-        <span class="badge">MVP</span>
+        <div class="header-actions">
+          <span class="badge">MVP</span>
+          <button id="fullScreenBtn" class="btn-icon" title="Open in full screen for demo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3H5C3.89543 3 3 3.89543 3 5V8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 8V5C21 3.89543 20.1046 3 19 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M8 21H5C3.89543 21 3 20.1046 3 19V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M16 21H19C20.1046 21 21 20.1046 21 19V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -29,7 +39,7 @@
       <section class="input-section">
         <div class="section-header">
           <label for="stackTraceInput" class="label">Stack Trace</label>
-          <button id="extractBtn" class="btn-secondary" title="Extract from current page">
+          <button id="extractBtn" class="btn-secondary" title="Upload JSON stack trace file">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -53,6 +63,8 @@ Exception in thread &quot;main&quot; java.lang.NullPointerException
         <div class="char-count">
           <span id="charCount">0</span> characters
         </div>
+        <!-- Hidden file input for JSON upload -->
+        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
       </section>
 
       <!-- Action Buttons -->
@@ -85,6 +97,13 @@ Exception in thread &quot;main&quot; java.lang.NullPointerException
       <section id="resultsSection" class="results-section hidden">
         <div class="section-header">
           <h2 class="section-title">Analysis Results</h2>
+          <button id="copyBtn" class="btn-icon" title="Copy analysis to clipboard">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 15H4C3.46957 15 2.96086 14.7893 2.58579 14.4142C2.21071 14.0391 2 13.5304 2 13V4C2 3.46957 2.21071 2.96086 2.58579 2.58579C2.96086 2.21071 3.46957 2 4 2H13C13.5304 2 14.0391 2.21071 14.4142 2.58579C14.7893 2.96086 15 3.46957 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Copy
+          </button>
         </div>
         <div id="resultsContent" class="results-content">
           <!-- Results will be populated here -->
@@ -132,7 +151,7 @@ Exception in thread &quot;main&quot; java.lang.NullPointerException
     <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
-        <span class="footer-text">LabWeek 2026 Demo - Day 3</span>
+        <span class="footer-text">LabWeek 2026 Demo - Day 4</span>
         <a href="settings.html" class="footer-link">Settings</a>
       </div>
     </footer>

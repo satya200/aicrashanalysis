@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Powered RDK Crash Analysis</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Slide 1 - Title */
+    #slide1 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      text-align: center;
+    }
+
+    #slide1 h1 {
+      font-size: 72px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: fadeInUp 1s ease;
+    }
+
+    #slide1 .subtitle {
+      font-size: 32px;
+      font-weight: 300;
+      margin-bottom: 60px;
+      opacity: 0.9;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    #slide1 .author-section {
+      margin-top: 80px;
+      font-size: 20px;
+      opacity: 0.8;
+      animation: fadeInUp 1.4s ease;
+    }
+
+    #slide1 .author-section input {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      padding: 10px;
+      font-size: 18px;
+      margin: 10px;
+      text-align: center;
+      min-width: 250px;
+    }
+
+    #slide1 .author-section input::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* Slide 2 - Problem */
+    #slide2 {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .slide-title {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .problem-box {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .problem-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .problem-box h3 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .problem-box p {
+      font-size: 18px;
+      line-height: 1.6;
+      opacity: 0.95;
+    }
+
+    .icon {
+      font-size: 40px;
+    }
+
+    .impact-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .impact-list li {
+      background: rgba(255,255,255,0.1);
+      padding: 15px 20px;
+      margin: 10px 0;
+      border-radius: 10px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .impact-list li::before {
+      content: '⚠️';
+      font-size: 24px;
+    }
+
+    /* Slide 3 - Solution */
+    #slide3 {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      width: 100%;
+      max-width: 1400px;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+     padding: 30px;
+      border-radius: 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: scale(1.05);
+      background: rgba(255,255,255,0.25);
+    }
+
+    .feature-card .icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .feature-card h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .feature-card p {
+      font-size: 16px;
+      opacity: 0.9;
+      line-height: 1.5;
+    }
+
+    .benefits {
+      margin-top: 30px;
+      font-size: 20px;
+      text-align: center;
+      padding: 20px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+    }
+
+    .benefits strong {
+      color: #ffed4e;
+      font-size: 28px;
+    }
+
+    /* Slide 4 - Architecture */
+    #slide4 {
+      background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    }
+
+    .architecture-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      width: 100%;
+      max-width: 1400px;
+      margin: 40px 0;
+    }
+
+    .arch-box {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      text-align: center;
+      min-width: 200px;
+      transition: all 0.3s ease;
+    }
+
+    .arch-box:hover {
+      transform: scale(1.1);
+      background: rgba(255,255,255,0.3);
+    }
+
+    .arch-box .icon {
+      font-size: 60px;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .arch-box h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .arch-box p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .arrow {
+      font-size: 50px;
+      color: rgba(255,255,255,0.6);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    .tech-stack {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .tech-item {
+      background: rgba(255,255,255,0.15);
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    /* Slide 5 - Demo */
+    #slide5 {
+      background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    }
+
+    .demo-placeholder {
+      width: 80%;
+      max-width: 1200px;
+      height: 60%;
+      background: rgba(0,0,0,0.3);
+      border-radius: 20px;
+      border: 3px dashed rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .demo-placeholder .icon {
+      font-size: 100px;
+    }
+
+    .demo-placeholder p {
+      font-size: 24px;
+      opacity: 0.8;
+    }
+
+    .demo-placeholder input {
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 400px;
+    }
+
+    .demo-placeholder input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* Slide 6 - End */
+    #slide6 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      text-align: center;
+    }
+
+    #slide6 h1 {
+      font-size: 64px;
+      margin-bottom: 30px;
+    }
+
+    #slide6 h2 {
+      font-size: 36px;
+      margin-bottom: 60px;
+      opacity: 0.9;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+
+    .contact-box {
+      background: rgba(255,255,255,0.15);
+      padding: 25px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 20px;
+    }
+
+    .contact-box .icon {
+      font-size: 40px;
+    }
+
+    /* Navigation */
+    .navigation {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      display: flex;
+      gap: 15px;
+      z-index: 1000;
+    }
+
+    .nav-btn {
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.4);
+      transform: scale(1.1);
+    }
+
+    .slide-counter {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease;
+    }
+
+    /* Print styles for PDF export */
+    @media print {
+      .slide {
+        page-break-after: always;
+        position: relative;
+        display: block !important;
+      }
+      .navigation, .slide-counter {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="slides-container">
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide1">
+      <h1 class="fade-in">AI-Powered RDK Crash Analysis</h1>
+      <div class="subtitle fade-in">From Stack Trace to Root Cause in Seconds</div>
+      <div class="author-section fade-in">
+        <div style="margin: 20px 0;">
+          <label style="display: block; margin-bottom: 10px;">Presented by:</label>
+          <input type="text" placeholder="Your Name" id="authorName">
+        </div>
+        <div style="margin: 20px 0;">
+          <label style="display: block; margin-bottom: 10px;">Team:</label>
+          <input type="text" placeholder="Your Team Name" id="teamName">
+        </div>
+        <div style="margin-top: 40px; font-size: 18px; opacity: 0.7;">
+          LabWeek 2026 Demo | March 15, 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide" id="slide2">
+      <h2 class="slide-title fade-in">The Problem & Its Impact</h2>
+      <div class="content-grid fade-in">
+        <div>
+          <div class="problem-box">
+            <h3><span class="icon">🔍</span> Manual Investigation</h3>
+            <p>Today's crash analysis requires extensive manual work:</p>
+            <ul class="impact-list" style="margin-top: 20px;">
+              <li>Navigate to Stack Trace Portal</li>
+              <li>Extract and analyze stack traces</li>
+              <li>Search through source code repositories</li>
+              <li>Correlate code with crash patterns</li>
+              <li>Identify potential root causes</li>
+              <li>Review logs and debug information</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="problem-box">
+            <h3><span class="icon">⏱️</span> The Impact</h3>
+            <p>This manual process creates significant challenges:</p>
+            <ul class="impact-list" style="margin-top: 20px;">
+              <li>Hours/Days spent per crash</li>
+              <li>Multiple team members involved</li>
+              <li>Reduced developer productivity</li>
+              <li>Delayed feature delivery</li>
+              <li>Increased operational costs</li>
+              <li>Customer impact from slow fixes</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 15px; text-align: center; font-size: 24px;">
+        <strong>❌ Result:</strong> Slow response times and high costs
+      </div>
+    </div>
+
+    <!-- Slide 3: The Solution -->
+    <div class="slide" id="slide3">
+      <h2 class="slide-title fade-in">The Solution: RDK Crash AI Analyzer</h2>
+      <div class="solution-grid fade-in">
+        <div class="feature-card">
+          <span class="icon">🤖</span>
+          <h3>AI-Powered Analysis</h3>
+          <p>Advanced LLM analyzes stack traces and source code to identify root causes automatically</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">📋</span>
+          <h3>Root Cause Identification</h3>
+          <p>Pinpoints suspicious functions and provides confidence levels for each hypothesis</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🔎</span>
+          <h3>Pattern Recognition</h3>
+          <p>Identifies crash patterns: null pointers, memory corruption, race conditions, and more</p>
+        </div>
+        <div class="feature-card">
+          <span class="icon">🛠️</span>
+          <h3>Actionable Suggestions</h3>
+          <p>Provides investigation steps, debugging commands, and code-specific recommendations</p>
+        </div>
+      </div>
+      <div class="benefits fade-in">
+        <strong>✅ 60 Seconds</strong> from stack trace to root cause suggestion<br>
+        <strong>✅ 90% Time Savings</strong> in crash investigation<br>
+        <strong>✅ Zero Manual Code Search</strong> – AI does it automatically
+      </div>
+    </div>
+
+    <!-- Slide 4: Architecture -->
+    <div class="slide" id="slide4">
+      <h2 class="slide-title fade-in">Architecture Overview</h2>
+      <div class="architecture-flow fade-in">
+        <div class="arch-box">
+          <span class="icon">🌐</span>
+          <h3>RDK Crash Portal</h3>
+          <p>Stack trace repository</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">🧩</span>
+          <h3>Chrome Extension</h3>
+          <p>User interface & extraction</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">🤖</span>
+          <h3>AI Analysis Engine</h3>
+          <p>LLM (Gemini/OpenAI)</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">📚</span>
+          <h3>GitHub Source Code</h3>
+          <p>Context enrichment</p>
+        </div>
+        <div class="arrow">→</div>
+        <div class="arch-box">
+          <span class="icon">📊</span>
+          <h3>AI Root Cause Summary</h3>
+          <p>Fix suggestions</p>
+        </div>
+      </div>
+      <div style="margin-top: 40px; text-align: center; font-size: 20px; background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; max-width: 1000px;">
+        <strong>Key Features:</strong> Multi-provider AI support • GitHub integration • JSON upload • Interactive Q&A • Full-screen demo mode
+      </div>
+      <div class="tech-stack fade-in">
+        <div class="tech-item"><strong>Frontend:</strong> Chrome Extension (Manifest V3)</div>
+        <div class="tech-item"><strong>AI Engine:</strong> Gemini 2.5 / GPT-5 / Claude</div>
+        <div class="tech-item"><strong>Integration:</strong> GitHub REST API</div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Demo -->
+    <div class="slide" id="slide5">
+      <h2 class="slide-title fade-in">Live Demo / Recorded Video</h2>
+      <div class="demo-placeholder fade-in">
+        <span class="icon">🎬</span>
+        <p>Demo Video or Live Demonstration</p>
+        <input type="text" placeholder="Paste video link or embed code here" id="demoLink">
+        <p style="font-size: 18px; opacity: 0.7; margin-top: 20px;">
+          For live demo: Open Chrome Extension and demonstrate the workflow
+        </p>
+      </div>
+      <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px;">
+        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; text-align: center;">
+          <div style="font-size: 36px; margin-bottom: 10px;">1️⃣</div>
+          <p>Upload/Paste Stack Trace</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; text-align: center;">
+          <div style="font-size: 36px; margin-bottom: 10px;">2️⃣</div>
+          <p>AI Analyzes Code</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; text-align: center;">
+          <div style="font-size: 36px; margin-bottom: 10px;">3️⃣</div>
+          <p>View Root Cause</p>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 15px; text-align: center;">
+          <div style="font-size: 36px; margin-bottom: 10px;">4️⃣</div>
+          <p>Get Fix Suggestions</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: End -->
+    <div class="slide" id="slide6">
+      <h1 class="fade-in">Thank You!</h1>
+      <h2 class="fade-in">Questions & Discussion</h2>
+      <div style="font-size: 24px; margin: 40px 0; opacity: 0.9;" class="fade-in">
+        🚀 <strong>Ready for Production Deployment</strong>
+      </div>
+      <div class="contact-grid fade-in">
+        <div class="contact-box">
+          <span class="icon">📧</span>
+          <div>
+            <div style="font-size: 16px; opacity: 0.7;">Email</div>
+            <input type="text" placeholder="your.email@company.com" style="background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.5); color: #fff; padding: 5px; font-size: 18px; width: 100%;">
+          </div>
+        </div>
+        <div class="contact-box">
+          <span class="icon">💼</span>
+          <div>
+            <div style="font-size: 16px; opacity: 0.7;">GitHub</div>
+            <input type="text" placeholder="github.com/yourproject" style="background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.5); color: #fff; padding: 5px; font-size: 18px; width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 60px; font-size: 20px; opacity: 0.8;" class="fade-in">
+        <p>🎯 <strong>Next Steps:</strong></p>
+        <p style="margin-top: 15px; line-height: 1.8;">
+          📌 Integrate to Stack Trace Portal<br>
+          📌 Add crashed component log to AI prompt for better suggestions<br>
+          📌 Implement caching for AI analysis data
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="navigation">
+    <button class="nav-btn" onclick="previousSlide()">◀</button>
+    <button class="nav-btn" onclick="nextSlide()">▶</button>
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">6</span>
+  </div>
+
+  <script>
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    document.getElementById('totalSlides').textContent = totalSlides;
+
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+      document.getElementById('currentSlide').textContent = index + 1;
+    }
+
+    function nextSlide() {
+      currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+      showSlide(currentSlideIndex);
+    }
+
+    function previousSlide() {
+      currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+      showSlide(currentSlideIndex);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        previousSlide();
+      } else if (e.key === 'Home') {
+        currentSlideIndex = 0;
+        showSlide(currentSlideIndex);
+      } else if (e.key === 'End') {
+        currentSlideIndex = totalSlides - 1;
+        showSlide(currentSlideIndex);
+      }
+    });
+
+    // Save inputs to localStorage
+    document.getElementById('authorName')?.addEventListener('input', (e) => {
+      localStorage.setItem('authorName', e.target.value);
+    });
+
+    document.getElementById('teamName')?.addEventListener('input', (e) => {
+      localStorage.setItem('teamName', e.target.value);
+    });
+
+    document.getElementById('demoLink')?.addEventListener('input', (e) => {
+      localStorage.setItem('demoLink', e.target.value);
+    });
+
+    // Load saved inputs
+    window.addEventListener('load', () => {
+      document.getElementById('authorName').value = localStorage.getItem('authorName') || '';
+      document.getElementById('teamName').value = localStorage.getItem('teamName') || '';
+      document.getElementById('demoLink').value = localStorage.getItem('demoLink') || '';
+    });
+  </script>
+</body>
+</html>

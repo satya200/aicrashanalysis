@@ -3,6 +3,9 @@ const stackTraceInput = document.getElementById('stackTraceInput');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const clearBtn = document.getElementById('clearBtn');
 const extractBtn = document.getElementById('extractBtn');
+const copyBtn = document.getElementById('copyBtn');
+const fullScreenBtn = document.getElementById('fullScreenBtn');
+const jsonFileInput = document.getElementById('jsonFileInput');
 const charCount = document.getElementById('charCount');
 const statusSection = document.getElementById('statusSection');
 const statusText = document.getElementById('statusText');
@@ -40,7 +43,14 @@ stackTraceInput.addEventListener('input', () => {
 analyzeBtn.addEventListener('click', analyzeStackTrace);
 clearBtn.addEventListener('click', clearAll);
 extractBtn.addEventListener('click', extractFromPage);
+copyBtn.addEventListener('click', copyAnalysisToClipboard);
+jsonFileInput.addEventListener('change', handleFileUpload);
 askBtn.addEventListener('click', handleFollowUpQuestion);
+
+// Add full screen button listener only if in popup mode
+if (fullScreenBtn) {
+  fullScreenBtn.addEventListener('click', openFullScreen);
+}
 
 followUpInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') {
@@ -81,6 +91,47 @@ function clearAll() {
   hideParsedSection();
   hideFollowUpSection();
   saveData();
+}
+
+function openFullScreen() {
+  // Save current state before opening in new tab
+  saveData();
+  
+  // Open popup.html in a new tab for full screen demo
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('popup.html')
+  });
+}
+
+async function copyAnalysisToClipboard() {
+  if (!lastAnalysis) {
+    showStatus('⚠️ No analysis available to copy');
+    setTimeout(hideStatus, 2000);
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(lastAnalysis);
+    
+    // Show success feedback
+    const originalText = copyBtn.getAttribute('title');
+    copyBtn.setAttribute('title', 'Copied!');
+    copyBtn.style.color = 'var(--success-color)';
+    
+    showStatus('✅ Analysis copied to clipboard!');
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      copyBtn.setAttribute('title', originalText || 'Copy to clipboard');
+      copyBtn.style.color = '';
+      hideStatus();
+    }, 2000);
+    
+  } catch (error) {
+    console.error('Failed to copy:', error);
+    showStatus('❌ Failed to copy to clipboard');
+    setTimeout(hideStatus, 2000);
+  }
 }
 
 function showStatus(message) {
@@ -205,6 +256,11 @@ async function analyzeStackTrace() {
     if (result.success) {
       lastAnalysis = result.analysis;
       const formattedAnalysis = formatMarkdown(result.analysis);
+      console.log('📊 Displaying analysis:', {
+        originalLength: result.analysis.length,
+        formattedLength: formattedAnalysis.length,
+        sectionsFound: (result.analysis.match(/\*\*[A-Z][A-Z\s]+\*\*/g) || [])
+      });
       showResults(`
         <div class="ai-analysis">
           ${formattedAnalysis}
@@ -499,41 +555,169 @@ async function handleFollowUpQuestion() {
 }
 
 async function extractFromPage() {
-  showStatus('Attempting to extract stack trace from page...');
+  // Trigger file input for JSON upload
+  jsonFileInput.click();
+}
+
+async function handleFileUpload(event) {
+  const file = event.target.files[0];
+  
+  if (!file) {
+    return;
+  }
+  
+  if (!file.name.endsWith('.json')) {
+    showStatus('⚠️ Please select a JSON file');
+    setTimeout(hideStatus, 3000);
+    return;
+  }
+  
+  showStatus('📂 Reading JSON file...');
+  console.log('📂 Loading file:', file.name);
   
   try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const fileContent = await file.text();
+    console.log('📄 File size:', fileContent.length, 'characters');
     
-    // Try to inject content script and extract
-    chrome.tabs.sendMessage(
-      tab.id,
-      { action: 'extractStackTrace' },
-      (response) => {
-        if (chrome.runtime.lastError) {
-          showStatus('⚠️ Could not extract from this page. Manual paste required.');
-          setTimeout(hideStatus, 3000);
-          return;
-        }
-        
-        if (response && response.stackTrace) {
-          stackTraceInput.value = response.stackTrace;
-          currentStackTrace = response.stackTrace;
-          updateCharCount();
-          updateAnalyzeButton();
-          saveData();
-          showStatus('✅ Stack trace extracted successfully!');
-          setTimeout(hideStatus, 2000);
-        } else {
-          showStatus('⚠️ No stack trace found on this page.');
-          setTimeout(hideStatus, 3000);
+    // Parse JSON but also keep the text for position-based search
+    const jsonData = JSON.parse(fileContent);
+    console.log('✅ JSON parsed successfully');
+    
+    // Extract first thread's stackWalk based on text position
+    const stackTrace = parseBacktraceJson(jsonData, fileContent);
+    
+    if (!stackTrace) {
+      showStatus('❌ No valid stackWalk found in JSON');
+      setTimeout(hideStatus, 3000);
+      return;
+    }
+    
+    console.log('📝 Formatted stack trace length:', stackTrace.length, 'characters');
+    console.log('📝 Number of lines:', stackTrace.split('\n').length);
+    
+    // Set the stack trace in the input
+    stackTraceInput.value = stackTrace;
+    currentStackTrace = stackTrace;
+    updateCharCount();
+    updateAnalyzeButton();
+    saveData();
+    
+    showStatus('✅ Stack trace extracted from JSON successfully!');
+    setTimeout(hideStatus, 2000);
+    
+    // Clear the file input so the same file can be selected again
+    jsonFileInput.value = '';
+    
+  } catch (error) {
+    console.error('❌ JSON parsing error:', error);
+    showStatus('❌ Failed to parse JSON file: ' + error.message);
+    setTimeout(hideStatus, 3000);
+    jsonFileInput.value = '';
+  }
+}
+
+function parseBacktraceJson(jsonData, jsonText) {
+  try {
+    console.log('🔍 Searching for first stackWalk array in JSON...');
+    
+    // Find all stackWalk arrays and track their positions in the original text
+    const stackWalkArrays = [];
+    findAllStackWalks(jsonData, '', stackWalkArrays);
+    
+    if (stackWalkArrays.length === 0) {
+      console.error('❌ No stackWalk array found in JSON');
+      return null;
+    }
+    
+    // Find which one appears first in the original JSON text
+    let firstStackWalk = null;
+    let firstPosition = Infinity;
+    
+    for (const item of stackWalkArrays) {
+      // Find the position of this path in the original text
+      // Extract a unique identifier (like the first function name)
+      const firstFunc = item.stackWalk[0]?.functionName;
+      if (firstFunc) {
+        const searchPattern = `"functionName"\\s*:\\s*"${firstFunc}"`;
+        const match = jsonText.search(new RegExp(searchPattern));
+        if (match !== -1 && match < firstPosition) {
+          firstPosition = match;
+          firstStackWalk = item;
         }
       }
-    );
+    }
+    
+    if (!firstStackWalk) {
+      // Fallback: just use the first one found
+      firstStackWalk = stackWalkArrays[0];
+    }
+    
+    console.log(`✅ Found first stackWalk at: ${firstStackWalk.path}`);
+    console.log(`   Position in file: ${firstPosition}`);
+    console.log(`   Frames in stackWalk: ${firstStackWalk.stackWalk.length}`);
+    console.log(`   First function: ${firstStackWalk.stackWalk[0]?.functionName || 'unknown'}`);
+    
+    // Format stackWalk as a stack trace
+    const formattedTrace = formatStackWalk(firstStackWalk.stackWalk, firstStackWalk.path);
+    
+    console.log('✅ Successfully formatted stack trace');
+    console.log('First 3 lines:', formattedTrace.split('\n').slice(0, 3).join('\n'));
+    
+    return formattedTrace;
   } catch (error) {
-    console.error('Extract error:', error);
-    showStatus('❌ Extraction failed. Please paste manually.');
-    setTimeout(hideStatus, 3000);
+    console.error('Error parsing backtrace JSON:', error);
+    return null;
   }
+}
+
+function findAllStackWalks(obj, path, results) {
+  // Recursively find all stackWalk arrays in the JSON
+  if (obj && typeof obj === 'object') {
+    if (obj.hasOwnProperty('stackWalk') && Array.isArray(obj.stackWalk)) {
+      results.push({
+        stackWalk: obj.stackWalk,
+        path: path || 'root'
+      });
+    }
+    
+    // Recursively search all properties
+    for (const key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        const newPath = path ? `${path}.${key}` : key;
+        findAllStackWalks(obj[key], newPath, results);
+      }
+    }
+  }
+}
+
+function formatStackWalk(stackWalk, path) {
+  // Create a formatted stack trace from stackWalk array
+  let output = [];
+  
+  // Add header with location info
+  output.push(`Stack Trace from: ${path}`);
+  output.push('');
+  
+  // Format each frame as single-line for parser compatibility
+  stackWalk.forEach((frame, index) => {
+    const frameNum = frame.callStack !== undefined ? frame.callStack : index;
+    const funcName = frame.functionName || '(unknown)';
+    const sourceCode = frame.sourceCode || '';
+    const sourceLine = frame.sourceLine || '';
+    
+    // Create single-line format that matches the C/C++ parser pattern
+    // Pattern: #N function at file.cpp:line
+    if (sourceCode && sourceLine) {
+      output.push(`#${frameNum} ${funcName} at ${sourceCode}:${sourceLine}`);
+    } else if (sourceCode) {
+      output.push(`#${frameNum} ${funcName} at ${sourceCode}`);
+    } else {
+      // No source code, just function name
+      output.push(`#${frameNum} ${funcName}`);
+    }
+  });
+  
+  return output.join('\n');
 }
 
 // Storage functions

@@ -70,7 +70,7 @@ class AIService {
     console.log('🤖 AI Prompt Config:', {
       hasRepoContext: !!hasRepoContext,
       hasActualCode: !!hasActualCode,
-      willShowSection4: !!hasRepoContext,
+      willShowSection4: !!hasRepoContext,  // Fixed: Show section 4 whenever repo is configured
       repoInfoLength: repoFormatted.length
     });
 
@@ -219,85 +219,7 @@ Answer the user's question with specific, technical details related to this cras
         };
       } else {
         throw new Error('Unexpected Gemini API response format');
-      }
-    } catch (error) {
-      console.error('Gemini Service Error:', error);
-      throw error;
-    }
-  }
-
-  // Call OpenAI API for crash analysis
-  async analyzeWithOpenAI(stackTrace, parsedFrames, repoContextInfo = null) {
-    const prompt = this.generateAnalysisPrompt(stackTrace, parsedFrames, repoContextInfo);
-    
-    const requestBody = {
-      model: this.openaiModel,
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a senior Linux crash analysis engineer specializing in debugging stack traces and identifying root causes.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      temperature: 0.7,
-      max_tokens: 4096
-    };
-
-    try {
-      console.log('🤖 Calling OpenAI API:', {
-        url: this.openaiUrl,
-        model: this.openaiModel,
-        promptLength: prompt.length
-      });
-
-      const response = await fetch(`${this.openaiUrl}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.openaiToken}`
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        let errorData;
-        try {
-          errorData = JSON.parse(errorText);
-        } catch {
-          errorData = { message: errorText };
-        }
-        throw new Error(errorData.error?.message || errorData.message || `OpenAI API request failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      if (data.choices && data.choices[0]?.message?.content) {
-        const analysisText = data.choices[0].message.content;
-        console.log('✅ OpenAI Response received:', {
-          length: analysisText.length,
-          model: data.model || this.openaiModel,
-          sections: (analysisText.match(/\*\*[A-Z][A-Z\s]+\*\*/g) || []).length
-        });
-        return {
-          success: true,
-          analysis: analysisText,
-          model: this.openaiModel,
-          provider: 'openai'
-        };
-      } else {
-        throw new Error('Unexpected OpenAI API response format');
-      }
-    } catch (error) {
-      console.error('OpenAI Service Error:', error);
-      throw error;
-    }
-  }
-
-  // Interactive follow-up question (routes to appropriate provider)
+      } (routes to appropriate provider)
   async askFollowUp(originalStackTrace, previousAnalysis, userQuestion) {
     await this.initialize();
     
@@ -407,7 +329,85 @@ Answer the user's question with specific, technical details related to this cras
         throw new Error('Unexpected API response format');
       }
     } catch (error) {
+      console.error('Open { message: errorText };
+        }
+        throw new Error(errorData.error?.message || errorData.message || `OpenAI API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.choices && data.choices[0]?.message?.content) {
+        const analysisText = data.choices[0].message.content;
+        console.log('✅ OpenAI Response received:', {
+          length: analysisText.length,
+          model: data.model || this.openaiModel,
+          sections: (analysisText.match(/\*\*[A-Z][A-Z\s]+\*\*/g) || []).length
+        });
+        return {
+          success: true,
+          analysis: analysisText,
+          model: this.openaiModel,
+          provider: 'openai'
+        };
+      } else {
+        throw new Error('Unexpected OpenAI API response format');
+      }
+    } catch (error) {
       console.error('OpenAI Service Error:', error);
+      throw error;
+    }
+  }
+
+  // Interactive follow-up question
+  async askFollowUp(originalStackTrace, previousAnalysis, userQuestion) {
+    if (!this.apiKey) {
+      await this.initialize();
+    }
+
+    const prompt = this.generateFollowUpPrompt(originalStackTrace, previousAnalysis, userQuestion);
+    
+    const requestBody = {
+      contents: [{
+        parts: [{
+          text: prompt
+        }]
+      }],
+      generationConfig: {
+        temperature: 0.8,
+        maxOutputTokens: 1024,
+      }
+    };
+
+    try {
+      const response = await fetch(
+        `${this.baseUrl}/${this.model}:generateContent?key=${this.apiKey}`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody)
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || `API request failed: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+        return {
+          success: true,
+          answer: data.candidates[0].content.parts[0].text,
+          model: this.model
+        };
+      } else {
+        throw new Error('Unexpected API response format');
+      }
+    } catch (error) {
+      console.error('AI Service Error:', error);
       throw error;
     }
   }

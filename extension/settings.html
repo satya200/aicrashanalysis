@@ -130,33 +130,90 @@
         Back to Analyzer
       </a>
 
+      <!-- AI Provider Selection -->
       <div class="setting-group">
-        <label class="setting-label" for="apiKey">Google AI Studio API Key</label>
+        <label class="setting-label">AI Provider</label>
         <p class="setting-description">
-          Enter your Google AI Studio (Gemini) API key to enable AI-powered crash analysis.
+          Choose your AI provider for crash analysis
         </p>
-        <input 
-          type="password" 
-          id="apiKey" 
-          class="setting-input" 
-          placeholder="AIzaSy..."
-          autocomplete="off"
-        >
-        <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">
-          🔗 Get your API key from Google AI Studio
-        </a>
+        <select id="aiProvider" class="setting-input">
+          <option value="gemini">Google Gemini (Free tier available)</option>
+          <option value="openai">OpenAI Compatible (Organization provided)</option>
+        </select>
       </div>
 
-      <div class="setting-group">
-        <label class="setting-label" for="model">AI Model</label>
-        <p class="setting-description">
-          Select the Gemini model to use for analysis.
-        </p>
-        <select id="model" class="setting-input">
-          <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fast, Recommended)</option>
-          <option value="gemini-2.5-pro">Gemini 2.5 Pro (More Capable)</option>
-          <option value="gemini-3-flash-preview">Gemini 3 Flash Preview (Latest)</option>
-        </select>
+      <!-- Gemini Settings (shown when Gemini selected) -->
+      <div id="geminiSettings" class="provider-settings">
+        <div class="setting-group">
+          <label class="setting-label" for="apiKey">Google AI Studio API Key</label>
+          <p class="setting-description">
+            Enter your Google AI Studio (Gemini) API key to enable AI-powered crash analysis.
+          </p>
+          <input 
+            type="password" 
+            id="apiKey" 
+            class="setting-input" 
+            placeholder="AIzaSy..."
+            autocomplete="off"
+          >
+          <a href="https://makersuite.google.com/app/apikey" target="_blank" class="help-link">
+            🔗 Get your API key from Google AI Studio
+          </a>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="model">Gemini Model</label>
+          <p class="setting-description">
+            Select the Gemini model to use for analysis.
+          </p>
+          <select id="model" class="setting-input">
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash (Fast, Recommended)</option>
+            <option value="gemini-2.5-pro">Gemini 2.5 Pro (More Capable)</option>
+            <option value="gemini-3-flash-preview">Gemini 3 Flash Preview (Latest)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- OpenAI Settings (shown when OpenAI selected) -->
+      <div id="openaiSettings" class="provider-settings" style="display: none;">
+        <div class="setting-group">
+          <label class="setting-label" for="openaiUrl">OpenAI API URL</label>
+          <p class="setting-description">
+            Your organization's OpenAI-compatible API endpoint
+          </p>
+          <input 
+            type="text" 
+            id="openaiUrl" 
+            class="setting-input" 
+            placeholder="https://api.context.flow.cnap.comcast.net/modelgw/models/openai/v1"
+            style="font-family: 'Consolas', 'Monaco', monospace;"
+          >
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="openaiToken">API Token</label>
+          <p class="setting-description">
+            Your organization-provided API token for authentication
+          </p>
+          <input 
+            type="password" 
+            id="openaiToken" 
+            class="setting-input" 
+            placeholder="sk-... or your token"
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label" for="openaiModel">Model</label>
+          <p class="setting-description">
+            Select the model provided by your organization
+          </p>
+          <select id="openaiModel" class="setting-input">
+            <option value="gpt-5-2">GPT-5-2 (Azure)</option>
+            <option value="claude-4-6-sonnet">Claude 4.6 Sonnet (AWS)</option>
+          </select>
+        </div>
       </div>
 
       <div class="setting-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color);">
@@ -211,8 +268,9 @@
       <div class="setting-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color);">
         <h3 style="font-size: 14px; font-weight: 600; margin-bottom: 8px;">About</h3>
         <p style="font-size: 12px; color: var(--text-secondary); line-height: 1.6;">
-          This extension uses Google's Gemini AI to analyze crash stack traces and provide intelligent suggestions for debugging. 
-          Your API key is stored locally in your browser and never sent to any third-party servers.
+          This extension supports multiple AI providers for analyzing crash stack traces. 
+          Choose between Google Gemini (free tier available) or your organization's OpenAI-compatible endpoint.
+          Your credentials are stored locally in your browser and never sent to third-party servers.
         </p>
       </div>
     </main>

@@ -1,0 +1,1110 @@
+{
+    "created_date": "2026-03-02T14:58:29.823855",
+    "timestamp": 1772463509,
+    "classifier": "SEGV",
+    "fingerprint": 7014996,
+    "uuid": "bac0e9e4-5f54-468b-a8ab-da138a5644e8",
+    "rdk_type": "RDKV",
+    "attributes": {
+        "crashName": "SIGSEGV /SEGV_MAPERR",
+        "imageName": "SKXI11ADS_037.045.01.8.1p52s1_PROD_sdy",
+        "model": "SKXI11ADS",
+        "mac": "04B86A1E7643",
+        "fileName": "mac04B86A1E7643_dat2026-03-02-14-58-25_boxXiOne_modSKXI11ADS_telemetry2_0_2e946582-3cc2-4ae1-89e23991-f2b078d6.dmp.tgz",
+        "crashPath": "minidump/2026/3/2/14/SKXI11ADS/SKXI11ADS_037.045.01.8.1p52s1_PROD_sdy/prod/mac04B86A1E7643_dat2026-03-02-14-58-25_boxXiOne_modSKXI11ADS_telemetry2_0_2e946582-3cc2-4ae1-89e23991-f2b078d6.dmp.tgz",
+        "stackPath": "stacktrace_upload/minidump/2026/3/2/14/SKXI11ADS/SKXI11ADS_037.045.01.8.1p52s1_PROD_sdy/prod/mac04B86A1E7643_dat2026-03-02-14-58-07_boxXiOne_modSKXI11ADS_telemetry2_0_2e946582-3cc2-4ae1-89e23991-f2b078d6.txt",
+        "jsonPath": "stacktrace_upload/minidump/2026/3/2/14/SKXI11ADS/SKXI11ADS_037.045.01.8.1p52s1_PROD_sdy/prod/mac04B86A1E7643_dat2026-03-02-14-58-07_boxXiOne_modSKXI11ADS_telemetry2_0_2e946582-3cc2-4ae1-89e23991-f2b078d6.json",
+        "appName": "telemetry2_0",
+        "application": "telemetry2_0",
+        "attribute_1": "sky-uk",
+        "attribute_2": "NULL",
+        "function": "'strlen', 'appendRequestParams', 'getUpdatedConfigurationThread', 'clone'"
+    },
+    "threads": {
+        "9": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "strlen",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x23"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__strdup",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/string/strdup.c",
+                    "sourceLine": 41,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libxconfclient.so.0.0.0",
+                    "functionName": "appendRequestParams",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/xconf-client/../../../git/source/xconf-client/xconfclient.c",
+                    "sourceLine": 229,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libxconfclient.so.0.0.0",
+                    "functionName": "getUpdatedConfigurationThread",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/xconf-client/../../../git/source/xconf-client/xconfclient.c",
+                    "sourceLine": 828,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libxconfclient.so.0.0.0",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "0": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__clock_nanosleep_time64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/time/../sysdeps/unix/sysv/linux/clock_nanosleep.c",
+                    "sourceLine": 62,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__nanosleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/unix/sysv/linux/nanosleep.c",
+                    "sourceLine": 25,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "__sleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/posix/sleep.c",
+                    "sourceLine": 55,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "main",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/../../git/source/telemetry2_0.c",
+                    "sourceLine": 277,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_start_call_main",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/csu/../sysdeps/nptl/libc_start_call_main.h",
+                    "sourceLine": 58,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_start_main_impl",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/csu/libc-start.c",
+                    "sourceLine": 389,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 7,
+                    "appName": "libc.so.6",
+                    "functionName": "_start",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x26"
+                },
+                {
+                    "callStack": 8,
+                    "appName": "libc.so.6",
+                    "functionName": "_dl_find_object_freeres",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/elf/dl-find_object.c",
+                    "sourceLine": 857,
+                    "sourceAddress": "0x13"
+                },
+                {
+                    "callStack": 9,
+                    "appName": "libc.so.6",
+                    "functionName": "",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0xbe8aad18"
+                },
+                {
+                    "callStack": 10,
+                    "appName": "libc.so.6",
+                    "functionName": "",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0xbeeb0ffe"
+                },
+                {
+                    "callStack": 11,
+                    "appName": "libc.so.6",
+                    "functionName": "main",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/../../git/source/telemetry2_0.c",
+                    "sourceLine": 364,
+                    "sourceAddress": "0x45"
+                },
+                {
+                    "callStack": 12,
+                    "appName": "libc.so.6",
+                    "functionName": "",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x74652f3b"
+                }
+            ]
+        },
+        "1": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_recv",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/socket/../sysdeps/unix/sysv/linux/recv.c",
+                    "sourceLine": 26,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "rtConnection_ReadUntil",
+                    "sourceCode": "/usr/src/debug/rbus/1.99+gitAUTOINC+200e91229c-r0/git/src/rtmessage/rtConnection.c",
+                    "sourceLine": 493,
+                    "sourceAddress": "0xf"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "rtConnection_Read",
+                    "sourceCode": "/usr/src/debug/rbus/1.99+gitAUTOINC+200e91229c-r0/git/src/rtmessage/rtConnection.c",
+                    "sourceLine": 1501,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "rtConnection_ReaderThread",
+                    "sourceCode": "/usr/src/debug/rbus/1.99+gitAUTOINC+200e91229c-r0/git/src/rtmessage/rtConnection.c",
+                    "sourceLine": 1838,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "2": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_common",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 40,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_cancelable64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 139,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "___pthread_cond_wait",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_cond_wait.c",
+                    "sourceLine": 503,
+                    "sourceAddress": "0xd"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "rtConnection_CallbackThread",
+                    "sourceCode": "/usr/src/debug/rbus/1.99+gitAUTOINC+200e91229c-r0/git/src/rtmessage/rtConnection.c",
+                    "sourceLine": 1752,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "3": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_common",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 40,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_cancelable64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 139,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "___pthread_cond_wait",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_cond_wait.c",
+                    "sourceLine": 503,
+                    "sourceAddress": "0xd"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "process_rp_thread",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/bulkdata/../../../git/source/bulkdata/datamodel.c",
+                    "sourceLine": 59,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "4": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_common",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 40,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_cancelable64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 139,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "___pthread_cond_wait",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_cond_wait.c",
+                    "sourceLine": 503,
+                    "sourceAddress": "0xd"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "process_msg_thread",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/bulkdata/../../../git/source/bulkdata/datamodel.c",
+                    "sourceLine": 113,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "5": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_common",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 40,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__futex_abstimed_wait_cancelable64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/futex-internal.c",
+                    "sourceLine": 139,
+                    "sourceAddress": "0x9"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "___pthread_cond_wait",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_cond_wait.c",
+                    "sourceLine": 503,
+                    "sourceAddress": "0xd"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "process_tmprp_thread",
+                    "sourceCode": "/usr/src/debug/telemetry/1.99+git64f60f5e15-r0/build/source/bulkdata/../../../git/source/bulkdata/datamodel.c",
+                    "sourceLine": 88,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "6": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "___mq_timedreceive_time64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/rt/../sysdeps/unix/sysv/linux/mq_timedreceive.c",
+                    "sourceLine": 57,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "___mq_timedreceive",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/rt/../sysdeps/unix/sysv/linux/mq_timedreceive.c",
+                    "sourceLine": 86,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "__mq_receive",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/rt/../sysdeps/unix/sysv/linux/mq_receive.c",
+                    "sourceLine": 30,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "messageQueueProcessing",
+                    "sourceCode": "/usr/src/debug/webconfig-framework/1.99+git2ce92082fc-r0/build/source/../../git/source/webconfig_framework.c",
+                    "sourceLine": 948,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "7": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__clock_nanosleep_time64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/time/../sysdeps/unix/sysv/linux/clock_nanosleep.c",
+                    "sourceLine": 62,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__nanosleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/unix/sysv/linux/nanosleep.c",
+                    "sourceLine": 25,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "__sleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/posix/sleep.c",
+                    "sourceLine": 55,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "display_subDocs",
+                    "sourceCode": "/usr/src/debug/webconfig-framework/1.99+git2ce92082fc-r0/build/source/../../git/source/webconfig_framework.c",
+                    "sourceLine": 100,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        },
+        "8": {
+            "stackWalk": [
+                {
+                    "callStack": 0,
+                    "appName": "libc.so.6",
+                    "functionName": "__libc_do_syscall",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 1,
+                    "appName": "libc.so.6",
+                    "functionName": "__clock_nanosleep_time64",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/time/../sysdeps/unix/sysv/linux/clock_nanosleep.c",
+                    "sourceLine": 62,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 2,
+                    "appName": "libc.so.6",
+                    "functionName": "__nanosleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/unix/sysv/linux/nanosleep.c",
+                    "sourceLine": 25,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 3,
+                    "appName": "libc.so.6",
+                    "functionName": "__sleep",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/posix/../sysdeps/posix/sleep.c",
+                    "sourceLine": 55,
+                    "sourceAddress": "0x3"
+                },
+                {
+                    "callStack": 4,
+                    "appName": "libc.so.6",
+                    "functionName": "subscribeSubdocForceReset",
+                    "sourceCode": "/usr/src/debug/webconfig-framework/1.99+git2ce92082fc-r0/build/source/../../git/source/webconfig_bus_interface.c",
+                    "sourceLine": 70,
+                    "sourceAddress": "0x5"
+                },
+                {
+                    "callStack": 5,
+                    "appName": "libc.so.6",
+                    "functionName": "start_thread",
+                    "sourceCode": "/usr/src/debug/glibc/2.35-r0/git/nptl/pthread_create.c",
+                    "sourceLine": 442,
+                    "sourceAddress": "0x7"
+                },
+                {
+                    "callStack": 6,
+                    "appName": "libc.so.6",
+                    "functionName": "clone",
+                    "sourceCode": "",
+                    "sourceLine": "",
+                    "sourceAddress": "0x3e"
+                }
+            ]
+        }
+    },
+    "modules": {
+        "moduleDetail": [
+            {
+                "application": "telemetry2_0",
+                "binary": "",
+                "library": "telemetry2_0",
+                "syms": "2A36D7671910E2A9CC71AF0E494D79E30",
+                "memory_start": "0x00010000",
+                "memory_end": "0x00011fff",
+                "module_number": "1"
+            },
+            {
+                "application": "libnss_compat.so.2",
+                "binary": "",
+                "library": "libnss_compat.so.2",
+                "syms": "D91CE46AC02727DD8F339065C72FD6310",
+                "memory_start": "0xb5280000",
+                "memory_end": "0xb5284fff",
+                "module_number": "0"
+            },
+            {
+                "application": "liblzma.so.5.2.6",
+                "binary": "",
+                "library": "liblzma.so.5.2.6",
+                "syms": "07152FE8B5961218819B39250D62D1FE0",
+                "memory_start": "0xb62a0000",
+                "memory_end": "0xb62b5fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libresolv.so.2",
+                "binary": "",
+                "library": "libresolv.so.2",
+                "syms": "CCFF6E3BCD9310B8A4B2486756025D060",
+                "memory_start": "0xb62d0000",
+                "memory_end": "0xb62d8fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libsystemd.so.0.15.0",
+                "binary": "",
+                "library": "libsystemd.so.0.15.0",
+                "syms": "2954B6069F7B0C74171E65F0CA1135540",
+                "memory_start": "0xb62f9000",
+                "memory_end": "0xb634bfff",
+                "module_number": "0"
+            },
+            {
+                "application": "libpcre.so.1.2.7",
+                "binary": "",
+                "library": "libpcre.so.1.2.7",
+                "syms": "87DDD2BAD7B798DD92B4A42D04AB8F580",
+                "memory_start": "0xb6350000",
+                "memory_end": "0xb637cfff",
+                "module_number": "0"
+            },
+            {
+                "application": "libcrypto.so.3",
+                "binary": "",
+                "library": "libcrypto.so.3",
+                "syms": "1150951CC6F581F0368D8D3AED65C5CB0",
+                "memory_start": "0xb6390000",
+                "memory_end": "0xb6561fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libssl.so.3",
+                "binary": "",
+                "library": "libssl.so.3",
+                "syms": "DA93E1EBB3A94EBBAC858E714F3A99B00",
+                "memory_start": "0xb65a0000",
+                "memory_end": "0xb65eefff",
+                "module_number": "0"
+            },
+            {
+                "application": "libidn2.so.0.3.7",
+                "binary": "",
+                "library": "libidn2.so.0.3.7",
+                "syms": "1A01A780B46AD37B6905E77FCF8BCBAD0",
+                "memory_start": "0xb6610000",
+                "memory_end": "0xb6657fff",
+                "module_number": "0"
+            },
+            {
+                "application": "librtMessage.so.2.2.0",
+                "binary": "",
+                "library": "librtMessage.so.2.2.0",
+                "syms": "40F83D1ABC62A5EFBF3410A5B8B418BD0",
+                "memory_start": "0xb6670000",
+                "memory_end": "0xb667cfff",
+                "module_number": "0"
+            },
+            {
+                "application": "librbuscore.so.2.2.0",
+                "binary": "",
+                "library": "librbuscore.so.2.2.0",
+                "syms": "180A956B36821BF2BFEF0C994DEDCEF90",
+                "memory_start": "0xb6770000",
+                "memory_end": "0xb6779fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libz.so.1.2.11",
+                "binary": "",
+                "library": "libz.so.1.2.11",
+                "syms": "4D960AE4638EEE0B6025304E2062BD340",
+                "memory_start": "0xb6790000",
+                "memory_end": "0xb679dfff",
+                "module_number": "0"
+            },
+            {
+                "application": "librt.so.1",
+                "binary": "",
+                "library": "librt.so.1",
+                "syms": "A16DC99BFCB7A83E6ED8ADB2820BFCA40",
+                "memory_start": "0xb67b0000",
+                "memory_end": "0xb67b0fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libcap.so.2.65",
+                "binary": "",
+                "library": "libcap.so.2.65",
+                "syms": "002DA4E8F7770CFCCF1C0070A212BF8F0",
+                "memory_start": "0xb67d0000",
+                "memory_end": "0xb67d5fff",
+                "module_number": "0"
+            },
+            {
+                "application": "librfcapi.so.0.0.0",
+                "binary": "",
+                "library": "librfcapi.so.0.0.0",
+                "syms": "73622BB4E215F6C000E0A174216C1E7A0",
+                "memory_start": "0xb67f0000",
+                "memory_end": "0xb67f3fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libcimplog.so.1.0.0",
+                "binary": "",
+                "library": "libcimplog.so.1.0.0",
+                "syms": "77FC79CDC619EA36751298B18BA651870",
+                "memory_start": "0xb6810000",
+                "memory_end": "0xb6810fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libwdmp-c.so",
+                "binary": "",
+                "library": "libwdmp-c.so",
+                "syms": "D4DA3DCB7C929AD2494A3EDB02AB820B0",
+                "memory_start": "0xb6830000",
+                "memory_end": "0xb6833fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libjsoncpp.so.1.8.4",
+                "binary": "",
+                "library": "libjsoncpp.so.1.8.4",
+                "syms": "2F31E803A4795EF7D68921745501C1AB0",
+                "memory_start": "0xb6850000",
+                "memory_end": "0xb6869fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libgcc_s.so.1",
+                "binary": "",
+                "library": "libgcc_s.so.1",
+                "syms": "5FA49A1F4E3F88C3C868C383842F6FFB0",
+                "memory_start": "0xb6880000",
+                "memory_end": "0xb6898fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libm.so.6",
+                "binary": "",
+                "library": "libm.so.6",
+                "syms": "95E39B34F37E0070EC3AA03C2B082F1B0",
+                "memory_start": "0xb68b0000",
+                "memory_end": "0xb68eefff",
+                "module_number": "0"
+            },
+            {
+                "application": "liblog4c.so.3.3.0",
+                "binary": "",
+                "library": "liblog4c.so.3.3.0",
+                "syms": "8A81D786DABA7816EFC73DC095288A0D0",
+                "memory_start": "0xb6910000",
+                "memory_end": "0xb6922fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libglib-2.0.so.0.7200.3",
+                "binary": "",
+                "library": "libglib-2.0.so.0.7200.3",
+                "syms": "6136D4C945656ECCD6AF3265F35E33160",
+                "memory_start": "0xb6940000",
+                "memory_end": "0xb6a0bfff",
+                "module_number": "0"
+            },
+            {
+                "application": "librbus.so.2.2.0",
+                "binary": "",
+                "library": "librbus.so.2.2.0",
+                "syms": "4DCBB6616D1EEA14724F6EB4ABAC721D0",
+                "memory_start": "0xb6a20000",
+                "memory_end": "0xb6a42fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libmsgpackc.so.2.0.0",
+                "binary": "",
+                "library": "libmsgpackc.so.2.0.0",
+                "syms": "77F8379F7CA7A218CFFE846FACCC75CB0",
+                "memory_start": "0xb6a60000",
+                "memory_end": "0xb6a63fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libt2parser.so.0.0.0",
+                "binary": "",
+                "library": "libt2parser.so.0.0.0",
+                "syms": "AA39970036E45FCA15689949F834C6330",
+                "memory_start": "0xb6a80000",
+                "memory_end": "0xb6a86fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libRdkCertSelector.so.0.0.0",
+                "binary": "",
+                "library": "libRdkCertSelector.so.0.0.0",
+                "syms": "1B5445DE6039B4DD1D842A07E254A3850",
+                "memory_start": "0xb6aa0000",
+                "memory_end": "0xb6aa1fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libcurl.so.4.7.0",
+                "binary": "",
+                "library": "libcurl.so.4.7.0",
+                "syms": "22956AFC0DC8076333D33C0541ABB3280",
+                "memory_start": "0xb6ac0000",
+                "memory_end": "0xb6b0afff",
+                "module_number": "0"
+            },
+            {
+                "application": "libcjson.so.1.7.15",
+                "binary": "",
+                "library": "libcjson.so.1.7.15",
+                "syms": "DD462E3C65D79BB7C625377720B9FB630",
+                "memory_start": "0xb6b20000",
+                "memory_end": "0xb6b23fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libreportgen.so.0.0.0",
+                "binary": "",
+                "library": "libreportgen.so.0.0.0",
+                "syms": "B0E4C675FE1C8A2A29BDD3879886D3480",
+                "memory_start": "0xb6b40000",
+                "memory_end": "0xb6b42fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libccspinterface.so.0.0.0",
+                "binary": "",
+                "library": "libccspinterface.so.0.0.0",
+                "syms": "BB5135F38A2B30FD4BB6A615A70E53E10",
+                "memory_start": "0xb6b60000",
+                "memory_end": "0xb6b65fff",
+                "module_number": "0"
+            },
+            {
+                "application": "librbusmethod.so.0.0.0",
+                "binary": "",
+                "library": "librbusmethod.so.0.0.0",
+                "syms": "2C619862F35F86E7E097CE14FC58AFC90",
+                "memory_start": "0xb6b80000",
+                "memory_end": "0xb6b80fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libhttp.so.0.0.0",
+                "binary": "",
+                "library": "libhttp.so.0.0.0",
+                "syms": "9D6CC49938F3C3E8F632B60673D47D730",
+                "memory_start": "0xb6ba0000",
+                "memory_end": "0xb6ba1fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libdcautil.so.0.0.0",
+                "binary": "",
+                "library": "libdcautil.so.0.0.0",
+                "syms": "BA4F582463C5D2DE4EB993BB6E0615900",
+                "memory_start": "0xb6bc0000",
+                "memory_end": "0xb6bc5fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libwebconfig_framework.so.0.0.0",
+                "binary": "",
+                "library": "libwebconfig_framework.so.0.0.0",
+                "syms": "B46B332D9352666F1D14C10E649B2EBB0",
+                "memory_start": "0xb6be0000",
+                "memory_end": "0xb6be8fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libsafec.so.3.0.7",
+                "binary": "",
+                "library": "libsafec.so.3.0.7",
+                "syms": "28E82470D897B7DA2BAAB3B3BDA5978E0",
+                "memory_start": "0xb6c00000",
+                "memory_end": "0xb6c0dfff",
+                "module_number": "0"
+            },
+            {
+                "application": "libprivilege.so.0.0.0",
+                "binary": "",
+                "library": "libprivilege.so.0.0.0",
+                "syms": "6D94EAB6879485B80EB84DF05E71F83C0",
+                "memory_start": "0xb6c20000",
+                "memory_end": "0xb6c23fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libsecure_wrapper.so.0.0.0",
+                "binary": "",
+                "library": "libsecure_wrapper.so.0.0.0",
+                "syms": "C0380D75D3AA5C1ABF552FA2565406790",
+                "memory_start": "0xb6c40000",
+                "memory_end": "0xb6c42fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libstdc++.so.6.0.29",
+                "binary": "",
+                "library": "libstdc++.so.6.0.29",
+                "syms": "CEDABD2EA0C96D1396CE22FF7601DA730",
+                "memory_start": "0xb6c60000",
+                "memory_end": "0xb6d6ffff",
+                "module_number": "0"
+            },
+            {
+                "application": "libpthread.so.0",
+                "binary": "",
+                "library": "libpthread.so.0",
+                "syms": "A7045783B283A0F05C1FBCD94BEB75390",
+                "memory_start": "0xb6d90000",
+                "memory_end": "0xb6d90fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libbreakpadwrapper.so.0.0.0",
+                "binary": "",
+                "library": "libbreakpadwrapper.so.0.0.0",
+                "syms": "D02F90E9DC686827D16537FB31E68C730",
+                "memory_start": "0xb6db0000",
+                "memory_end": "0xb6dbffff",
+                "module_number": "0"
+            },
+            {
+                "application": "librdkloggers.so.0.0.0",
+                "binary": "",
+                "library": "librdkloggers.so.0.0.0",
+                "syms": "54307D60A8B164791CCCD6E725D09E080",
+                "memory_start": "0xb6de0000",
+                "memory_end": "0xb6de3fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libc.so.6",
+                "binary": "",
+                "library": "libc.so.6",
+                "syms": "B62C5A3880A269176A90FE3AF3D1D7250",
+                "memory_start": "0xb6e00000",
+                "memory_end": "0xb6efdfff",
+                "module_number": "0"
+            },
+            {
+                "application": "libt2thunder_privacycontrol.so.0.0.0",
+                "binary": "",
+                "library": "libt2thunder_privacycontrol.so.0.0.0",
+                "syms": "FC9EAD6A19AE3620F4D18527AB186D080",
+                "memory_start": "0xb6f20000",
+                "memory_end": "0xb6f21fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libxconfclient.so.0.0.0",
+                "binary": "",
+                "library": "libxconfclient.so.0.0.0",
+                "syms": "7DBC149C8D21F31B2472869CC5FAD8A10",
+                "memory_start": "0xb6f40000",
+                "memory_end": "0xb6f43fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libscheduler.so.0.0.0",
+                "binary": "",
+                "library": "libscheduler.so.0.0.0",
+                "syms": "59CE7C53B1BF745D270CA0CA820331A00",
+                "memory_start": "0xb6f60000",
+                "memory_end": "0xb6f62fff",
+                "module_number": "0"
+            },
+            {
+                "application": "libbulkdata.so.0.0.0",
+                "binary": "",
+                "library": "libbulkdata.so.0.0.0",
+                "syms": "0EEEE8BCB99E9E00AA6F76F501FCF91C0",
+                "memory_start": "0xb6f80000",
+                "memory_end": "0xb6f8dfff",
+                "module_number": "0"
+            },
+            {
+                "application": "libt2utils.so.0.0.0",
+                "binary": "",
+                "library": "libt2utils.so.0.0.0",
+                "syms": "493AED4C040E47163BB4D12B067A086D0",
+                "memory_start": "0xb6fa0000",
+                "memory_end": "0xb6fa4fff",
+                "module_number": "0"
+            },
+            {
+                "application": "ld-linux-armhf.so.3",
+                "binary": "",
+                "library": "ld-linux-armhf.so.3",
+                "syms": "0DB422A2EED096AAD5D42952B73586600",
+                "memory_start": "0xb6fc1000",
+                "memory_end": "0xb6fdffff",
+                "module_number": "0"
+            },
+            {
+                "application": "linux-gate.so",
+                "binary": "",
+                "library": "linux-gate.so",
+                "syms": "FD6DD83414B98BC0357E60053B94C03C0",
+                "memory_start": "0xbeeb1000",
+                "memory_end": "0xbeeb1fff",
+                "module_number": "0"
+            }
+        ]
+    }
+}

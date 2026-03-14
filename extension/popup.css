@@ -29,9 +29,9 @@ body {
   line-height: 1.5;
   color: var(--text-primary);
   background: var(--background);
-  width: 600px;
-  min-height: 400px;
-  max-height: 700px;
+  width: 800px;
+  min-height: 500px;
+  max-height: 800px;
   overflow-y: auto;
 }
 
@@ -75,6 +75,24 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header .btn-icon {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px;
+}
+
+.header .btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
 }
 
 /* Main Content */
@@ -200,6 +218,37 @@ body {
   transform: translateY(0);
 }
 
+/* Icon Buttons */
+.btn-icon {
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+
+.btn-icon:hover {
+  background: var(--surface);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+}
+
+.btn-icon:active {
+  transform: translateY(0);
+}
+
+.btn-icon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
 /* Status Section */
 .status-section {
   padding: 16px;
@@ -228,26 +277,41 @@ body {
   to { transform: rotate(360deg); }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Results Section */
 .results-section {
   padding: 16px;
-  background: var(--surface);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .results-content {
   margin-top: 12px;
-  padding: 12px;
+  padding: 16px;
   background: white;
   border-radius: var(--radius-sm);
   font-size: 13px;
   line-height: 1.6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* Parsed Section */
 .parsed-section {
   margin-top: 8px;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .parsed-section details {
@@ -255,6 +319,7 @@ body {
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   overflow: hidden;
+  box-shadow: var(--shadow-sm);
 }
 
 .parsed-summary {
@@ -368,9 +433,11 @@ details[open] .parsed-summary svg {
 .follow-up-section {
   margin-top: 16px;
   padding: 16px;
-  background: var(--surface);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
 .follow-up-input-group {
@@ -433,11 +500,20 @@ details[open] .parsed-summary svg {
   font-size: 16px;
   border-bottom: 2px solid var(--primary-color);
   padding-bottom: 6px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+  background-size: 100% 2px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding-left: 8px;
+  margin-left: -8px;
 }
 
 .ai-analysis h2 {
   font-size: 14px;
   color: var(--primary-color);
+  padding-left: 8px;
+  border-left: 3px solid var(--primary-color);
+  margin-left: -8px;
 }
 
 .ai-analysis h3 {
@@ -509,5 +585,33 @@ details[open] .parsed-summary svg {
 .api-warning a {
   color: var(--primary-color);
   text-decoration: underline;
+}
+
+/* Full Screen Tab Mode - Center and expand for better demo visibility */
+@media (min-width: 900px) {
+  body {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    max-height: none;
+  }
+  
+  .container {
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    padding: 32px 40px;
+  }
+  
+  .header {
+    padding: 20px 40px;
+  }
+  
+  /* Hide full screen button when already in tab mode */
+  .header .btn-icon[title*="full screen"] {
+    display: none;
+  }
 }
 
