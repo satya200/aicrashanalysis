@@ -3,7 +3,7 @@ marp: true
 theme: default
 paginate: true
 backgroundColor: #fff
-backgroundImage: linear-gradient(135deg, #667eea 0%, #764ba2 100%)
+backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)
 color: #fff
 style: |
   section {
@@ -47,6 +47,19 @@ style: |
     font-size: 80px;
     margin-bottom: 20px;
   }
+  section.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+  }
+  section.hero-image img {
+    max-width: 85%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
 ---
 
 <!-- _class: lead -->
@@ -64,7 +77,14 @@ style: |
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) -->
+<!-- _class: hero-image -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
+
+![Hero Image](sample.png)
+
+---
+
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## The Problem & Its Impact
 
@@ -104,7 +124,7 @@ style: |
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #f093fb 0%, #f5576c 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## The Problem - Summary
 
@@ -121,7 +141,7 @@ style: |
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## The Solution: RDK Crash AI Analyzer
 
@@ -171,7 +191,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## The Solution - Benefits
 
@@ -185,7 +205,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## Architecture Overview
 
@@ -210,7 +230,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## Architecture - Technical Details
 
@@ -232,7 +252,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #fa709a 0%, #fee140 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## Live Demo / Recorded Video
 
@@ -256,7 +276,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #fa709a 0%, #fee140 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## Demo Highlights
 
@@ -275,7 +295,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #667eea 0%, #764ba2 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 <!-- _class: lead -->
 
 # Thank You!
@@ -288,7 +308,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #667eea 0%, #764ba2 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## Contact Information
 
@@ -316,7 +336,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #667eea 0%, #764ba2 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 
 ## 🎯 Next Steps
 
@@ -337,7 +357,7 @@ Provides investigation steps, debugging commands, and code-specific recommendati
 
 ---
 
-<!-- _backgroundImage: linear-gradient(135deg, #667eea 0%, #764ba2 100%) -->
+<!-- _backgroundImage: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) -->
 <!-- _class: lead -->
 
 # Questions?
